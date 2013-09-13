@@ -12,30 +12,32 @@
   
     <script src="ObjectBuilder.js"></script>
     <script>
+      
       var A = function(firstName, lastName, idade) {
-          Object.property(this, "firstName", "string", firstName, true);
-          Object.property(this, "lastName", "string", lastName, true);
-          Object.property(this, "idade", "number", idade, false);
-          Object.method(this, "fullName", function(prefix) {
-              return (prefix ? prefix + " ": "") + this.firstName() + " " + this.lastName();
-          });
-      }, logging = function(calling, target){
+        Object.property(this, "firstName", "string", firstName, true);
+        Object.property(this, "lastName", "string", lastName, true);
+        Object.property(this, "idade", "number", idade, false);
+        Object.method(this, "fullName", function(prefix) {
+          return (prefix ? prefix + " ": "") + this.firstName() + " " + this.lastName();
+        });
+      }, logging = function(calling, target) {
         try {
           calling();
         } catch (e) {
           $(target).html("ERROR: " + e);
         }
-      }, $ = function(id){
-        this.html = function(val) {
-          if (val) {
-            this.innerHTML = val;
-          } else {
-            return this.innerHTML;
+      }, $ = function(id) {
+        var element = document.getElementById(id);
+        return {
+          html: function(val) {
+            if (val) {
+              element.innerHTML = val;
+            } else {
+              return element.innerHTML;
+            }
           }
         };
-        return document.getElementById(id);
       };
-      
       
       var a = new A("Danilo", "Castro", 29);
       
